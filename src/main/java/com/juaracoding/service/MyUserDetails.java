@@ -32,6 +32,7 @@ public class MyUserDetails implements UserDetailsService{
 		roles = Arrays.asList(new SimpleGrantedAuthority(user.getRole()));
 		
 		return new User(user.getUsername(),user.getPassword(), roles);
+		
 	}
 
 }

@@ -16,4 +16,8 @@ public class DataUserService {
 		return duRepo.findByUsername(username);
 	}
 	
+	public String saveUser(DataUser user) {
+		duRepo.save(user);
+		return "Data Berhasil Terbuat";
+	}
 }

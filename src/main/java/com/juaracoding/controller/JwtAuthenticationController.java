@@ -7,6 +7,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,10 +37,16 @@ public class JwtAuthenticationController {
 		authenticate(dataUser.getUsername(), dataUser.getPassword());
 		
 		final UserDetails userDetails = uService.loadUserByUsername(dataUser.getUsername());
-		
 		final String token = tokenUtil.generateToken(userDetails, duService.getUserByUsername(dataUser.getUsername()).getRole());
-		
+
 		return ResponseEntity.ok(token);
+	}
+	
+	@PostMapping("/register")
+	public ResponseEntity<?> createUser(@RequestBody DataUser dataUser){
+		BCryptPasswordEncoder passwordEncode = new BCryptPasswordEncoder();
+		dataUser.setPassword(passwordEncode.encode(dataUser.getPassword()));
+		return ResponseEntity.ok(duService.saveUser(dataUser));
 	}
 	
 	private void authenticate(String username, String password) throws Exception{
