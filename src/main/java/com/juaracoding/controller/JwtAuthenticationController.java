@@ -8,6 +8,7 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,12 @@ public class JwtAuthenticationController {
 	@Autowired
 	private DataUserService duService;
 
-	@PostMapping("/authenticate")
+	@GetMapping("/getalluser")
+	public ResponseEntity<?> getAllUser() {
+		return ResponseEntity.ok(duService.getAllUser());
+	}
+	
+	@PostMapping("/login")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody DataUser dataUser) throws Exception{
 		authenticate(dataUser.getUsername(), dataUser.getPassword());
 		
@@ -41,6 +47,7 @@ public class JwtAuthenticationController {
 
 		return ResponseEntity.ok(token);
 	}
+	
 	
 	@PostMapping("/register")
 	public ResponseEntity<?> createUser(@RequestBody DataUser dataUser){
