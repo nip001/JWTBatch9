@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.juaracoding.config.JwtTokenUtil;
@@ -35,8 +36,8 @@ public class BeritaController {
 		return beritaSvc.getAllBerita();
 	}
 	
-	@GetMapping("/{title}")
-	public List<Berita> getBeritaByTitle(@PathVariable String title){
+	@GetMapping("/search")
+	public List<Berita> getBeritaByTitle(@RequestParam("title") String title){
 		return beritaSvc.getByTitle(title);
 	}
 	
