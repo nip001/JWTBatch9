@@ -6,14 +6,18 @@ import android.os.Parcelable;
 public class Berita implements Parcelable {
     private String title;
     private String deskripsi;
+    private String tanggal;
+    private String author;
+
+    public Berita(String title, String deskripsi, String author, String tanggal) {
+        this.title = title;
+        this.deskripsi = deskripsi;
+        this.author = author;
+        this.tanggal = tanggal;
+    }
 
     public Berita(){
 
-    }
-
-    public Berita(String title, String deskripsi) {
-        this.title = title;
-        this.deskripsi = deskripsi;
     }
 
     public String getTitle() {
@@ -32,6 +36,22 @@ public class Berita implements Parcelable {
         this.deskripsi = deskripsi;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getTanggal() {
+        return tanggal;
+    }
+
+    public void setTanggal(String tanggal) {
+        this.tanggal = tanggal;
+    }
+
 
     @Override
     public int describeContents() {
@@ -42,19 +62,25 @@ public class Berita implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.title);
         dest.writeString(this.deskripsi);
+        dest.writeString(this.author);
+        dest.writeString(this.tanggal);
     }
 
     public void readFromParcel(Parcel source) {
         this.title = source.readString();
         this.deskripsi = source.readString();
+        this.author = source.readString();
+        this.tanggal = source.readString();
     }
 
     protected Berita(Parcel in) {
         this.title = in.readString();
         this.deskripsi = in.readString();
+        this.author = in.readString();
+        this.tanggal = in.readString();
     }
 
-    public static final Parcelable.Creator<Berita> CREATOR = new Parcelable.Creator<Berita>() {
+    public static final Creator<Berita> CREATOR = new Creator<Berita>() {
         @Override
         public Berita createFromParcel(Parcel source) {
             return new Berita(source);

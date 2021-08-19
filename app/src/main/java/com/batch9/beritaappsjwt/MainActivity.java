@@ -44,8 +44,11 @@ public class MainActivity extends AppCompatActivity {
                 call.enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
-                        Toast.makeText(MainActivity.this,response.body(),Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(MainActivity.this,HomeActivity.class);
+                        i.putExtra("token",response.body());
+                        Toast.makeText(MainActivity.this,"Login Berhasil",Toast.LENGTH_LONG).show();
                         System.out.println(response.body());
+                        startActivity(i);
                     }
 
                     @Override
