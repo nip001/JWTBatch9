@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BeritaAppsJWT</string>
+    <string-array name="role">
+        <item>ROLE_USER</item>
+        <item>ROLE_ADMIN</item>
+    </string-array>
+</resources>
